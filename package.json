@@ -1,9 +1,10 @@
 {
   "name": "recruitment_boilerplate",
   "version": "1.0.0",
-  "description": "Startup House recruitment boierplate",
+  "description": "Startup House recruitment boilerplate",
   "scripts": {
-    "dev": "parcel src/index.html"
+    "dev": "parcel src/index.html",
+    "build": "parcel build --public-url https://alshakero.github.io/js_recruitment_task/ src/index.html"
   },
   "devDependencies": {
     "autoprefixer": "^9.4.2",
@@ -12,5 +13,8 @@
     "eslint-plugin-import": "^2.14.0",
     "parcel-bundler": "^1.10.3",
     "prettier": "^1.15.3"
+  },
+  "dependencies": {
+    "babel-polyfill": "^6.26.0"
   }
 }
