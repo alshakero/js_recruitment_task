@@ -8295,7 +8295,11 @@ exports.injectReadLaterStory = injectReadLaterStory;
 
 var _utils = require("./utils");
 
+/** A `p` element that we inject when an error occurs */
+var noReadLaterElement = document.createElement('p');
+noReadLaterElement.innerHTML = 'There is no stories to read later...';
 /** localStorage version key. Bump whenever there a breaking change in structure */
+
 var LOCAL_STORAGE_KEY = 'read-later-stories-v1';
 /** an array containing all saved stories */
 
@@ -8311,7 +8315,10 @@ function renderAllReadLaterStories() {
   (0, _utils.removeAllNodeChildren)(readLaterListUL);
 
   if (readLaterStoriesStore.length) {
+    noReadLaterElement.remove();
     readLaterStoriesStore.map(renderReadLaterStory).forEach(readLaterListUL.appendChild, readLaterListUL);
+  } else {
+    readLaterListUL.insertAdjacentElement('beforebegin', noReadLaterElement);
   }
 }
 /**
@@ -8332,7 +8339,7 @@ function loadReadLaterStories() {
 }
 /**
  * Renders and injects a new readLater story object. Highlights it if it already exists
- * @param {Object} story 
+ * @param {Object} story
  * @param {HTMLLIElement} originalStoryElement the original story `li`. This is used to animate read-later story element
  */
 
@@ -8362,6 +8369,7 @@ function injectReadLaterStory(story, originalStoryElement) {
         we measure the difference in position between original story and injected read-later story,
         then we transform the read-later story with that difference,
         the `appear` CSS animation will take care of removing the offset and the element will fall in place nicely
+        only works in Chromium and FF but still worth the 5 lines of code :D 
     */
 
     var origianlElementRect = originalStoryElement.getBoundingClientRect();
@@ -8369,6 +8377,7 @@ function injectReadLaterStory(story, originalStoryElement) {
     var xOffset = Math.floor(readLaterElementRect.left - origianlElementRect.left);
     var yOffset = Math.floor(readLaterElementRect.top - origianlElementRect.top);
     rendered.style.transform = "translate(-".concat(xOffset, "px, ").concat(-yOffset, "px)");
+    noReadLaterElement.remove();
     saveReadLaterStories();
   } else {
     // the story already exists, let's highlight it for a better UX
@@ -8387,7 +8396,7 @@ function injectReadLaterStory(story, originalStoryElement) {
 }
 /**
  * Removes a read-later story. From the UI and the local storage.
- * @param {string} storyId 
+ * @param {string} storyId
  */
 
 
@@ -8401,10 +8410,14 @@ function removeReadLaterStory(storyId) {
     saveReadLaterStories();
     readLaterListUL.children[index].remove();
   }
+
+  if (readLaterStoriesStore.length < 1) {
+    readLaterListUL.insertAdjacentElement('beforebegin', noReadLaterElement);
+  }
 }
 /**
  * Renders a `li` element representing a read-later story
- * @param {Object} story the story object 
+ * @param {Object} story the story object
  */
 
 
@@ -8557,7 +8570,9 @@ function _fetchArticles() {
 
 pageSelect.addEventListener('change', fetchArticles);
 sectionSelect.addEventListener('change', fetchArticles);
-searchInput.addEventListener('keyup', (0, _utils.debounce)(fetchArticles, 200));
+searchInput.addEventListener('keyup', (0, _utils.debounce)(fetchArticles, 200)); // to cover for the x button in the field
+
+searchInput.addEventListener('search', fetchArticles);
 fetchArticles();
 (0, _readLaterStore.renderAllReadLaterStories)();
 },{"babel-polyfill":"../node_modules/babel-polyfill/lib/index.js","./styles/main.css":"styles/main.css","./readLaterStore":"readLaterStore.js","./utils":"utils.js"}],"../node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
@@ -8588,7 +8603,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "58659" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "50194" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

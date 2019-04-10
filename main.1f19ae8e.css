@@ -120,9 +120,6 @@
   }
 }
 @-webkit-keyframes appear {
-  0% {
-    opacity: 0;
-  }
   100% {
     -webkit-transform: translate(0, 0);
             transform: translate(0, 0);
@@ -130,9 +127,6 @@
   }
 }
 @keyframes appear {
-  0% {
-    opacity: 0;
-  }
   100% {
     -webkit-transform: translate(0, 0);
             transform: translate(0, 0);
