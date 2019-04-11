@@ -1,34 +1,46 @@
 # JS Recruitment Task
 
 ## Description
+A quick solution for https://github.com/startupdevhouse/js_recruitment_task
 
-We would like you to create an application that will display list of news fetched from The Guardian. You should use their API, which can be found here: [https://open-platform.theguardian.com/](https://open-platform.theguardian.com/)
 
-Goal of this task is to check your JavaScript knowledge so please don't use any additional libraries, you can use `fetch` for http requests.
+## Running the app
 
-We have provided sample html + css styling, so you can focus on writing JS code.
+- Clone this repository.
+- Run `yarn` or `npm i` in its dir.
+- Run `yarn dev` or `npm start dev`.
 
-## Requirements
+## Testing the app
 
-- Display list of news from last month
-- Add pagination: 10 items per page
-- Add news filtering based on section selection from dropdown. You can restrict it only to: `sport`, `books`, `business`, `culture`
-- Add search functionality for filtering news content based on provided phrase
-- Each news list element should have following elements:
-  - Title
-  - Section name
-  - Date of publication
-  - Link to full article (open in new window)
-  - "Read Later" button
-- Clicking "Read later" button should add selected news to the "Read later" section on the right. Those elements should be stored somewhere and displayed even after refresh.
-- Each element from "read later" can be removed by clicking "delete" button
-- (Bonus) If you will find time, please briefly describe your approach to solving this task.
+I wrote 10 primitive tests just to make a point. I didn't use any libs as required. I just created `assert`, `assertEqual`, and `desribe` utilities to help me test. Break anything in the app and you should see the tests respective failing.  
 
-## Tools used
+### To run the tests
+ 
+- Run `yarn test` or `npm run test` 
+- Go to [http://localhost:5000/test](http://localhost:5000).
 
-In order to keep things simple we used only really small number of libs for this boilerplate:
+#### Small note:
+This is not a proper way to test an app. There are many amazing libs out there. So please don't judge the quality of my code from the `test` folder. I think only the app code is representative of my code quality. 
 
-- [Parcel](https://en.parceljs.org) as a bundler
-- [Milligram](https://milligram.io/) and [Normalize](https://necolas.github.io/normalize.css/) for some simple styling
-- [Eslint](https://eslint.org/) and [Prettier](https://prettier.io/) for static code check
-- [PostCSS](https://postcss.org/) with [Autoprefixr](https://autoprefixer.github.io/) for css compatibility
+## IE support
+I didn't put any effort in supporting IE. Because `fetch` is recommended and ie doesn't support `fetch`. So I dropped it.
+
+## Animations
+I understand they're not requirements. But I wanted my demo to stand out. Read-Later flying animation is lovely and its code is clean (6 lines of code) but only works in FF and Chromium browsers. It renders nicely in other browsers but without the flying animation, only fades in.
+
+## File structure
+
+Since Parcel is setup, I cut my code into three modules:
+- `utils.js`: has all the utility functions I use around the app.
+- `readLaterStore.js`" takes care of storing, loading, and rendering read-later articles.
+- `main.js` the entry point 
+
+The reason is for easier readiblity and maintenance. 
+
+## Quick view
+
+You can view the app quickly using GH pages [here](https://alshakero.github.io/js_recruitment_task/).
+
+## Acknowledgement 
+
+I liked the task description and the requirements are clear. I also appreciate taking care of the CSS and HTML. Saved me some time for sure. Thanks.
