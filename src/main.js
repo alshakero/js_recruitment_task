@@ -125,5 +125,7 @@ searchInput.addEventListener('keyup', debounce(fetchArticles, 200));
 // to cover for the x button in the field
 searchInput.addEventListener('search', fetchArticles);
 
-fetchArticles();
-renderAllReadLaterStories();
+document.addEventListener('DOMContentLoaded', () => {
+    fetchArticles();
+    renderAllReadLaterStories();
+})

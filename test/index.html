@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Tests</title>
+    <link
+      rel="stylesheet"
+      href="//fonts.googleapis.com/css?family=Roboto:300,300italic,700,700italic"
+    />
+    <link
+      rel="stylesheet"
+      href="//cdn.rawgit.com/necolas/normalize.css/master/normalize.css"
+    />
+    <link
+      rel="stylesheet"
+      href="//cdn.rawgit.com/milligram/milligram/master/dist/milligram.min.css"
+    />
+    <script src="fakeResponse.js"></script>
+    <script src="utils.js"></script>
+    <script src="specs.js"></script>
+  </head>
+  <style>
+    body {
+      display: flex;
+      height: 100vh;
+    }
+    #testingIframe {
+      flex: 0.5;
+    }
+    #testingResults {
+      flex: 0.5;
+      margin: 0 1em;
+    }
+    #results {
+      list-style-type: none;
+      padding: 2em;
+    }
+    .passed {
+      color: green;
+    }
+    .passed::before {
+      content: '✓ ';
+    }
+    .failed {
+      color: red;
+    }
+    .failed::before {
+      content: '✖ ';
+    }
+    #finalResult {
+      padding: 10px;
+    }
+  </style>
+  <body>
+    <iframe id="testingIframe"></iframe>
+    <div id="testingResults">
+      <h1>Tests</h1>
+      <ul id="results"></ul>
+    </div>
+    <h3 id="finalResult"></h3>
+  </body>
+  <script>
+    testingIframe.src = '/dist';
+    testingIframe.addEventListener('load', async () => {
+      // if there are any localStorge items, delete them and reload
+      if (testingIframe.contentWindow.localStorage.length) {
+        testingIframe.contentWindow.localStorage.clear();
+        testingIframe.contentWindow.location.reload();
+        return;
+      }
+      testingIframe.contentWindow.fetch = function mockedFetch() {
+        return {
+          async json() {
+            return await fakeResponse;
+          },
+        };
+      };
+
+      const doc = testingIframe.contentWindow.document;
+
+      // wait for the unmocked early request to finish
+      await sleep(1000);
+      
+      // trigger a mocked fetch
+      doc.dispatchEvent(new CustomEvent('DOMContentLoaded'));
+
+      await sleep(2000);
+
+      runSpecs(
+        doc,
+        result => {
+          results.appendChild(renderResult(result));
+        },
+        allResults => {
+          const passed = allResults.filter(result => result.passed).length;
+          const total = allResults.length;
+          finalResult.textContent = `${passed}/${total} tests passed`;
+          finalResult.className = passed === total ? 'passed' : 'failed';
+        }
+      );
+    });
+  </script>
+</html>

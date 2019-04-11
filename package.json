@@ -4,13 +4,16 @@
   "description": "Startup House recruitment boilerplate",
   "scripts": {
     "dev": "parcel src/index.html",
-    "build": "parcel build --public-url https://alshakero.github.io/js_recruitment_task/ src/index.html"
+    "build": "parcel build --public-url https://alshakero.github.io/js_recruitment_task/ src/index.html",
+    "test": "parcel build --public-url /dist/ src/index.html && serve"
   },
   "devDependencies": {
     "autoprefixer": "^9.4.2",
+    "concurrently": "^4.1.0",
     "eslint": "^5.9.0",
     "eslint-config-airbnb-base": "^13.1.0",
     "eslint-plugin-import": "^2.14.0",
+    "express": "^4.16.4",
     "parcel-bundler": "^1.10.3",
     "prettier": "^1.15.3"
   },
