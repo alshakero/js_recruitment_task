@@ -8298,7 +8298,7 @@ var _utils = require("./utils");
 /** A `p` element that we inject when an error occurs */
 var noReadLaterElement = document.createElement('p');
 noReadLaterElement.innerHTML = 'There is no stories to read later...';
-/** localStorage version key. Bump whenever there a breaking change in structure */
+/** localStorage version key. Bump whenever there is a breaking change in structure */
 
 var LOCAL_STORAGE_KEY = 'read-later-stories-v1';
 /** an array containing all saved stories */
@@ -8572,9 +8572,13 @@ pageSelect.addEventListener('change', fetchArticles);
 sectionSelect.addEventListener('change', fetchArticles);
 searchInput.addEventListener('keyup', (0, _utils.debounce)(fetchArticles, 200)); // to cover for the x button in the field
 
-searchInput.addEventListener('search', fetchArticles);
-fetchArticles();
-(0, _readLaterStore.renderAllReadLaterStories)();
+searchInput.addEventListener('search', fetchArticles); // we can call `fetchArticles` here right away, but this is useful in tests.
+// It allows us to trigger fetching by dispatching an event
+
+document.addEventListener('DOMContentLoaded', function () {
+  fetchArticles();
+  (0, _readLaterStore.renderAllReadLaterStories)();
+});
 },{"babel-polyfill":"../node_modules/babel-polyfill/lib/index.js","./styles/main.css":"styles/main.css","./readLaterStore":"readLaterStore.js","./utils":"utils.js"}],"../node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
@@ -8603,7 +8607,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "61876" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "51723" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
