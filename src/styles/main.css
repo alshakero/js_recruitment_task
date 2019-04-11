@@ -79,12 +79,14 @@
   will-change: transform;
   /* transition background-color for nicer highlighting */
   transition: background-color 800ms ease-in-out; 
-  /* border radius is visible used upon highlighting */
+  /* border radius is visible and only used upon highlighting */
   border-radius: 10px;
 }
+
 .readLaterItem.highlighted {
   background-color: #9b4dca
 }
+
 .readLaterItem-title {
   display: inline;
 }
@@ -106,6 +108,9 @@
 @media (max-width: 40rem) {
   .newsActions {
     display: block;
+  }
+  .newsActions > * {
+    width: 100%;
   }
 }
 
