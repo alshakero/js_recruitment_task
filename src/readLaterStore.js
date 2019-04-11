@@ -4,7 +4,7 @@ import { removeAllNodeChildren } from './utils';
 const noReadLaterElement = document.createElement('p');
 noReadLaterElement.innerHTML = 'There is no stories to read later...';
 
-/** localStorage version key. Bump whenever there a breaking change in structure */
+/** localStorage version key. Bump whenever there is a breaking change in structure */
 const LOCAL_STORAGE_KEY = 'read-later-stories-v1';
 
 /** an array containing all saved stories */

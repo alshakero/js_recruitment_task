@@ -33,7 +33,7 @@ I understand they're not requirements. But I wanted my demo to stand out. Read-L
 Since Parcel is setup, I cut my code into three modules:
 - `utils.js`: has all the utility functions I use around the app.
 - `readLaterStore.js` takes care of storing, loading, and rendering read-later articles.
-- `main.js` the entry point 
+- `main.js` the entry point.
 
 The reason is for easier readiblity and maintenance. 
 

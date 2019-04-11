@@ -125,6 +125,8 @@ searchInput.addEventListener('keyup', debounce(fetchArticles, 200));
 // to cover for the x button in the field
 searchInput.addEventListener('search', fetchArticles);
 
+// we can call `fetchArticles` here right away, but this is useful in tests.
+// It allows us to trigger fetching by dispatching an event
 document.addEventListener('DOMContentLoaded', () => {
     fetchArticles();
     renderAllReadLaterStories();
